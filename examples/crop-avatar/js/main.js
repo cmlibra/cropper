@@ -188,7 +188,12 @@
         return /\.(jpg|jpeg|png|gif)$/.test(file);
       }
     },
-
+    resetFormElement: function (e)
+        {
+            e.wrap('<form>').closest('form').get(0).reset();
+            e.unwrap();
+        },
+        
     startCropper: function () {
       var _this = this;
 
@@ -217,7 +222,8 @@
         this.active = true;
       }
 
-      this.$avatarModal.one('hidden.bs.modal', function () {
+      this.$avatarModal.on('hidden.bs.modal', function () {
+       _this.resetFormElement(_this.$avatarInput);  //Reset the files property from avatarInput
         _this.$avatarPreview.empty();
         _this.stopCropper();
       });
